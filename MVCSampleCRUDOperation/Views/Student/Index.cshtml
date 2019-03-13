@@ -1,0 +1,94 @@
+﻿@model IEnumerable<MVCSampleCRUDOperation.Models.StudentViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <h3>Students</h3>
+</div>
+<div class="row" style="padding-bottom: 5px;">
+    <a href="~/Student/CreateStudent" class="btn btn-primary pull-right">New Student</a>
+</div>
+<div class="row">
+    <table class="table table-striped table-responsive table-bordered">
+        <thead>
+            <tr>
+                <th>S/N</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Date of Birth</th>
+                <th>Address</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Student_Name</td>
+                    <td>@item.Student_Email</td>
+                    <td>@item.Phone_Number</td>
+                    <td>@item.Student_DOB.Value.ToString("dd-MM-yyyy")</td>
+                    <td>@item.Address_Line1</td>
+                    <td><button class="btn btn-xs btn-primary" onclick="viewStudentfn('@item.Student_Id')">view</button>|<button class="btn btn-xs btn-success" onclick="editStudentfn('@item.Student_Id')">edit</button>|<button class="btn btn-xs btn-danger" onclick="deleteStudentfn('@item.Student_Id','@item.Student_Name')">delete</button></td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    @using (Html.BeginForm("ViewStudent", "student", FormMethod.Post, new { @class = "form-horizontal", id = "viewStudentForm" }))
+    {
+        <input type="hidden" name="id" id="student_view_id" />
+    }
+    @using (Html.BeginForm("EditStudent", "student", FormMethod.Post, new { @class = "form-horizontal", id = "editStudentForm" }))
+    {
+        <input type="hidden" name="id" id="student_edit_id" />
+    }
+    @using (Html.BeginForm("DeleteStudent", "student", FormMethod.Post, new { @class = "form-horizontal", id = "deleteStudentForm" }))
+    {
+        <input type="hidden" name="id" id="student_delete_id" />
+    }
+</div>
+@section Scripts{
+<script src="~/Content/bootbox.min.js"></script>
+<script>
+    function viewStudentfn(id) {
+        $("#student_view_id").val(id);
+        $("#viewStudentForm").submit();
+    }
+    function editStudentfn(id) {
+        $("#student_edit_id").val(id);
+        $("#editStudentForm").submit();
+    }
+    function deleteStudentfn(id, name) {
+        bootbox.confirm({
+            message: "You are about to delete " + name + ", Are you sure you want to delete?",
+            buttons: {
+                cancel: {
+                    label: 'No'
+                },
+                confirm: {
+                    label: 'Yes'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    $("#student_delete_id").val(id);
+                    $("#deleteStudentForm").submit();
+                }
+            }
+        });
+    }
+</script>
+   } 
+
+
+

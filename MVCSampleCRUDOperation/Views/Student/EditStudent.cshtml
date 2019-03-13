@@ -1,0 +1,71 @@
+﻿@model MVCSampleCRUDOperation.Models.StudentViewModel
+@{
+    ViewBag.Title = "Edit Student";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Student</h2>
+<p></p>
+<div class="row">
+    @using (Html.BeginForm("Edit_student", "student", FormMethod.Post, new { @class = "form-horizontal", id = "editStudentForm" }))
+    {
+
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2" style="color:red">
+                <p>@Html.ValidationSummary()</p>
+            </div>
+        </div>
+        @Html.HiddenFor(model => model.Student_Id)
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                Full Name
+            </label>
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.Student_Name, new { placeholder = "Full Name", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                Email
+            </label>
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.Student_Email, new { placeholder = "Email", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                Mobile
+            </label>
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.Phone_Number, new { placeholder = "Phone Number", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                Date of Birth
+            </label>
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.Student_DOB, new { placeholder = "Date of Birth [mm/dd/yyyy]", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                Address
+            </label>
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.Address_Line1, new { placeholder = "Line 1", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3 col-md-offset-2">
+                @Html.TextBoxFor(model => model.Address_Line2, new { placeholder = "Line 2", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3 col-md-offset-2">
+                <button class="btn btn-primary btn-sm" id="btnAdd" type="submit">Update</button>
+                <a href="~/Student/index" class="btn btn-danger btn-sm">Close</a>
+            </div>
+        </div>
+    }
+</div>
